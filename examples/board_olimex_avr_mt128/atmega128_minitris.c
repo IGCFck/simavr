@@ -49,7 +49,7 @@ static tune_t TUNE_GAMEOVER[] = { { 1000, 200 }, { 1500, 200 }, { 2000, 400 }, {
 
 static void play_note(int freq, int len) {
 	for (int l = 0; l < len; ++l) {
-		int i;
+		volatile int i;
 		PORTE = (PORTE & 0b11011111) | 0b00010000;	//set bit4 = 1; set bit5 = 0
 		for (i=freq; i; i--);
 		PORTE = (PORTE | 0b00100000) & 0b11101111;	//set bit4 = 0; set bit5 = 1

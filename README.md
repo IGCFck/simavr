@@ -25,6 +25,12 @@ On Ubuntu, SimAVR is available in the Bionic package source:
 
 Otherwise, `make` is enough to just start using __bin/simavr__. To install the __simavr__ command system-wide, `make install RELEASE=1`.
 
+Buzzer
+------------
+For using the piezo buzzer portaudio needs to be linked during linking phase, see  
+https://files.portaudio.com/docs/v19-doxydocs/tutorial_start.html  
+for compiling and installing it.  
+
 Supported IOs
 --------------
 * _eeprom_

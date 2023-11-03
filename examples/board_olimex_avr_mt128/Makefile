@@ -44,6 +44,7 @@ board = ${OBJ}/${target}.elf
 ${board} : ${OBJ}/button.o
 ${board} : ${OBJ}/hd44780.o
 ${board} : ${OBJ}/hd44780_glut.o
+${board} : ${OBJ}/buzzer.o
 ${board} : ${OBJ}/${target}.o
 
 ${target}: ${board}

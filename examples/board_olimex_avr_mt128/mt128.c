@@ -30,7 +30,7 @@
 #include "avr_ioport.h"
 #include "sim_elf.h"
 #include "sim_gdb.h"
-
+#include "sim_irq.h"
 #if __APPLE__
 #include <GLUT/glut.h>
 #else
@@ -41,7 +41,7 @@
 #include "button.h"
 #include "hd44780.h"
 #include "hd44780_glut.h"
-
+#include "buzzer.h"
 
 /* Command line argument globals */
 
@@ -77,6 +77,7 @@ static struct {
 	{ .key='2', .ui_key_state = { .count = 0, .state = 1 }, .avr_key_state = { .count = 0, .state = 1 }, .name = "B5" },
 };
 static uint8_t rotation = 0; // Rotation of LCD screen, between 0 and 3
+static buzzer_t buzzer; //simulated buzzer
 static hd44780_t hd44780; // simulated LCD controller
 static avr_t * avr = NULL; // simulated AVR MCU
 
@@ -192,11 +193,14 @@ static void setup_avr()
 	}
 }
 
+
 /**
  * Initialize peripherals and connect them to the MCU.
  */
 static void setup_board()
 {
+
+	buzzer_init(avr, &buzzer, "BZZ");
 	for (int i = 0; i < 5; i++) {
 		// initialize our peripheral
 		button_init(avr, &button[i].button, button[i].name);
@@ -427,6 +431,7 @@ static void run_avr()
 {
 	pthread_t run;
 	pthread_create(&run, NULL, run_avr_thread, NULL);
+  
 }
 
 /**
